@@ -16,10 +16,10 @@ const K2 = f => x => K(x)(f(x));
 const Y = f => (x => x(x))(x => f(y => x(x)(y)));
 
 // Funcion que hace log del puntaje actual y después devuelve el puntaje obtenido
-const logScore = K2(arg => console.log(`${name} queda con ${Math.abs(arg)} puntos`));
+const logScore = name => K2(arg => console.log(`${name} queda con ${Math.abs(arg)} puntos`));
 
 // Funcion que genera una jugada (nombre, score) basado en las acciones del turno del jugador
-const insertPlay = (name, score, plays) => [name, logScore(Math.abs(plays.map((play) => 
+const insertPlay = (name, score, plays) => [name, logScore(name)(Math.abs(plays.map((play) => 
     calculate_score(play)).reduce((a, b) => a - b, score)))];
     
 // Funcion que calcula el puntaje adquirido con una accion del jugador
