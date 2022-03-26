@@ -11,7 +11,7 @@ const imprimir_nuevo_puntaje = (nombre_jugador) => nuevo_puntaje => console.log(
 const ingresar_jugada = (nombre_jugador, puntaje_actual, lanzamientos) => 
 S(K)(imprimir_nuevo_puntaje(nombre_jugador))(
       Math.abs(K(puntaje_actual)(
-        console.log(`Es el turno del jugador ${nombre_jugador} (${puntaje_actual} puntos)`)
+        console.log(`Es el turno del jugador ${nombre_jugador} (${puntaje_actual} puntos):`)
       ) - tirar_veces(3).reduce((a, b) => a + b)
     ));
 
@@ -30,12 +30,12 @@ const winnerPlayers = (jugadores) => jugadores.filter((jugador) => jugador[1] ==
 const tirar_veces = (n) => Array.from(Array(n).keys()).map((value) => get_shot_input(value, NaN))
 
 const getScore = (n, input) => input == "SB" || input == "DB" ? get_shot_input(n, puntaje_tiro(input)) : 
-                    get_shot_input(n, puntaje_tiro(input, readline.question(`Cual fue el multiplicador?`).trim()));
+                    get_shot_input(n, puntaje_tiro(input, readline.question(`Cual fue el multiplicador?: `).trim()));
 
-const get_shot_input = (n, result) => isNaN(result) ? getScore(n, readline.question(`Que anotó (${n+1})`).trim()) : result
+const get_shot_input = (n, result) => isNaN(result) ? getScore(n, readline.question(`Que anotó (${n+1}): `).trim()) : result
 
 const puntaje_tiro = (lanzamiento, multiplicador) => lanzamiento == "DB" ? 50 : (lanzamiento == "SB" ? 25 : Number(lanzamiento.trim()) * Number(multiplicador.trim()));
 
-const winDialogue = (...winners) => winners.length === 1 ? `Ha ganado ${winners[0]}` : `Hay un empate entre ${winners[0] + ' y ' + winners[1]}`;
+const winDialogue = (winners) => winners.length === 1 ? `Ha ganado ${winners[0]}` : `Hay un empate entre ${winners[0] + ' y ' + winners[1]}`;
 
-console.log(winDialogue(...play_game(init_game('Marcos', 'Jose'))));
+console.log(winDialogue(play_game(init_game('Marcos', 'Jose'))));
