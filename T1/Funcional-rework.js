@@ -40,7 +40,7 @@ const gameFinished = (...jugadores) => jugadores.some((jugador) => jugador[1] ==
 
 const winnerPlayers = (...jugadores) => jugadores.filter((jugador) => jugador[1] === 0).map((jugador) => jugador[0])
 
-function tirar_veces(n) = Array.from(Array(n).keys()).map(get_shot_input);
+function tirar_veces(n) { Array.from(Array(n).keys()).map(get_shot_input);}
 
 function get_shot_input(n)
 {
