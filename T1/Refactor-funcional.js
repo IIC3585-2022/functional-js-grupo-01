@@ -2,6 +2,8 @@ const readline = require("readline-sync");
 
 const compose = (f,g) => (x) => f(g(x));
 
+const pipe = functions => (data) => functions.reduce( (value, func) => func(value), data);
+
 const composeThree = (f,g,h) => (...x) => f(g(h(...x)));
 
 const S = f => g => (...x) => f(...x)(g(...x));
@@ -38,6 +40,6 @@ const play_game = (jugadores) => compose(continueOrFinish, newTurn)(jugadores)
 
 const winDialogue = (winners) => winners.length === 1 ? `Ha ganado ${winners[0]}` : `Hay un empate entre ${winners[0] + ' y ' + winners[1]}`;
 
-const init_game = (...nombres_jugadores) => nombres_jugadores.map(nombre => [nombre, 501]);
+const init_game = nombres_jugadores => nombres_jugadores.map(nombre => [nombre, 501]);
 
-console.log(composeThree(winDialogue, play_game, init_game)('Marcos', 'Jose'))
+console.log(pipe([init_game, play_game, winDialogue])(['Marcos', 'Jose']));
